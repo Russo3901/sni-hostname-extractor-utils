@@ -65,3 +65,10 @@ this library returns `None`, the same as when the extension is absent entirely.
 That is deliberate: the caller's question is "what hostname did the client ask
 for", and "none" is the honest answer in both cases. If you need to distinguish
 the two, inspect the raw bytes yourself.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
